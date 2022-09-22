@@ -6,11 +6,24 @@
 //
 
 import Cocoa
+import Sparkle
+
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     
+    let updaterController: SPUStandardUpdaterController
+
+    override init() {
+      // This plumbs in the 3rd party Sparkle updater framework
+      // If you want to start the updater manually, pass false to startingUpdater and call .startUpdater() later
+      // This is where you can also pass an updater delegate if you need one
+      updaterController = SPUStandardUpdaterController(
+        startingUpdater: true,
+        updaterDelegate: nil,
+        userDriverDelegate: nil)
+    }
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -25,6 +38,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
 
+    func applicationShouldTerminateAfterLastWindowClosed (_ sender: NSApplication) -> Bool {
+        return true
+    }
 
 }
 
